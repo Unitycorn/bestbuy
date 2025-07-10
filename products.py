@@ -4,7 +4,7 @@ class Product:
             raise ValueError(f"Inappropriate product name: {name}")
         else:
             self.name = name
-        if price < 0 or not isinstance(price, float):
+        if price < 0:
             raise ValueError(f"Inappropriate price value: {price}")
         else:
             self.price = price
@@ -12,7 +12,10 @@ class Product:
             raise ValueError(f"Inappropriate quantity value: {quantity}")
         else:
             self.quantity = quantity
-        self.active = True
+        if self.quantity <= 0:
+            self.active = False
+        else:
+            self.active = True
 
     def get_quantity(self) -> int:
         return self.quantity
@@ -32,11 +35,14 @@ class Product:
         self.active = False
 
     def show(self):
-        print(f"{self.name}, Price: {self.price}, Quantity: {self.quantity}")
+        if self.active:
+            return f"{self.name}, Price: ${self.price}, Quantity: {self.quantity}"
+        else:
+            return None
 
     def buy(self, quantity) -> float:
         if self.quantity - quantity < 0:
-            raise ValueError("Quantity outcome is negative")
+            raise EnvironmentError("Quantity outcome is negative")
         else:
             if self.quantity - quantity == 0:
                 self.deactivate()

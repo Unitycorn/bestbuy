@@ -10,6 +10,7 @@ best_buy = store.Store(product_list)
 
 
 def show_menu():
+    """Simple output of the main menu"""
     print("""
         Store Menu
         ----------
@@ -21,6 +22,11 @@ def show_menu():
 
 
 def make_order(store_obj):
+    """
+    From list of available products, makes a shopping list containing tuples:
+    (products[index], quantity)
+    When item and quantity inputs are empty, send the order (when there are items in the list)
+    """
     shopping_list = []
     products = store_obj.get_all_products()
     print_products(products)
@@ -47,6 +53,7 @@ def make_order(store_obj):
 
 
 def print_products(products):
+    """Prints numbered list of products"""
     print("------")
     for i, product in enumerate(products):
         print(f"{i + 1}. {product.show()}")
@@ -54,6 +61,7 @@ def print_products(products):
 
 
 def start(store_obj: store.Store):
+    """Shows the menu, handles user choice 1-3, will end on 4 and continues the loop for every other input"""
     while True:
         show_menu()
         try:
